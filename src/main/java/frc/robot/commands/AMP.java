@@ -4,22 +4,22 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class Shoot extends Command {
+public class AMP extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
   Timer timer;
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Shoot(Shooter subsystem) {
+  public AMP(Shooter subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     timer = new Timer();
@@ -35,17 +35,17 @@ public class Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.prepareShoot(1);
+    m_subsystem.prepareShoot(0.1);
     System.out.println(timer.get());
     if(timer.get()>2){
-      m_subsystem.shoot(1);
+      m_subsystem.shoot(0.1,1);
       }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.shoot(0);
+    m_subsystem.shoot(0,0);
     m_subsystem.prepareShoot(0);
     timer.stop();
     timer.reset();

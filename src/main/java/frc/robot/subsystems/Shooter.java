@@ -9,8 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.units.Time;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,15 +21,16 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     motor1 = new CANSparkMax(Constants.MOTOR1, MotorType.kBrushless);
     motor2 = new VictorSPX(Constants.MOTOR2);
+    motor1.setInverted(true);
     motor1.setOpenLoopRampRate(0.1);
   }
 
-  public void prepareShoot(double speed){
-    motor1.set(-speed);
+  public void prepareShoot(double speedM1){
+    motor1.set(speedM1);
   }
-  public void shoot(double speed){
-    motor1.set(-speed);
-    motor2.set(ControlMode.PercentOutput, speed);
+  public void shoot(double speedM1, double speedM2){
+    motor1.set(speedM1);
+    motor2.set(ControlMode.PercentOutput, speedM2);
   }
 
 

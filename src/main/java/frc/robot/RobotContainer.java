@@ -5,10 +5,13 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AMP;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
+import frc.robot.commands.DriveInvert;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.Shoot;
+import frc.robot.commands.Humman;
+import frc.robot.commands.Speaker;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
@@ -56,8 +59,11 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.a().whileFalse(new Drive(m_Chassis));
-    m_driverController.b().whileTrue(new Shoot(m_Shooter));
+    m_driverController.rightBumper().whileTrue(new Drive(m_Chassis));
+    m_driverController.leftBumper().whileTrue(new DriveInvert(m_Chassis));
+    m_driverController.b().whileTrue(new Speaker(m_Shooter));
+    m_driverController.a().whileTrue(new AMP(m_Shooter));
+    m_driverController.y().whileTrue(new Humman(m_Shooter));
   }
 
   /**

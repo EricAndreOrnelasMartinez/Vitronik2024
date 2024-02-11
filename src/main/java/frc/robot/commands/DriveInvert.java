@@ -9,7 +9,7 @@ import frc.robot.subsystems.Chassis;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class Drive extends Command {
+public class DriveInvert extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Chassis m_subsystem;
 
@@ -18,7 +18,7 @@ public class Drive extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Drive(Chassis subsystem) {
+  public DriveInvert(Chassis subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -32,7 +32,7 @@ public class Drive extends Command {
   @Override
   public void execute() {
     double x = RobotContainer.m_driverController.getLeftX()*-1;
-    double y = RobotContainer.m_driverController.getLeftY();
+    double y = RobotContainer.m_driverController.getLeftY()*-1;
     m_subsystem.move(x, y);
   }
 
