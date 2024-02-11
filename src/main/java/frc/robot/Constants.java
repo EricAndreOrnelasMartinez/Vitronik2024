@@ -14,10 +14,16 @@ package frc.robot;
  */
 public final class Constants {
 
+  //ID'S CHASSIS
   public static final int MOTORIDL1 = 20;
   public static final int MOTORIDL2 = 7;
   public static final int MOTORIDR1 = 22;
   public static final int MOTORIDR2 = 21;
+
+  //ID'S SHOOTER
+  public static final int MOTOR1 = 24;
+  public static final int MOTOR2 = 7;
+
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
