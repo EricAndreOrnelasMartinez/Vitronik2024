@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -30,6 +31,18 @@ public class Chassis extends SubsystemBase {
     mL2.setInverted(true);
     mR1.setInverted(false);
     mR2.setInverted(false);
+    //mL1.setOpenLoopRampRate(0.1);
+    //mL2.setOpenLoopRampRate(0.1);
+    //mR1.setOpenLoopRampRate(0.1);
+    //mR2.setOpenLoopRampRate(0.1);
+    //mL1.setClosedLoopRampRate(0.1);
+    //mL2.setClosedLoopRampRate(0.1);
+    //mR1.setClosedLoopRampRate(0.1);
+    //mR2.setClosedLoopRampRate(0.1);
+    mL1.setIdleMode(IdleMode.kBrake);
+    mL2.setIdleMode(IdleMode.kBrake);
+    mR1.setIdleMode(IdleMode.kBrake);
+    mR2.setIdleMode(IdleMode.kBrake);
     giro = new AHRS(SPI.Port.kMXP);
   }
 

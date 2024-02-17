@@ -34,9 +34,9 @@ public class Speaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.prepareShoot(0.6);
+    m_subsystem.prepareShoot(1);
     System.out.println(timer.get());
-    if(timer.get()>2){
+    if(timer.get()>1){
       m_subsystem.shoot(0.6,1);
       }
   }
