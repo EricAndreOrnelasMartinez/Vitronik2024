@@ -25,12 +25,12 @@ public class Shooter extends SubsystemBase {
     motor1.setOpenLoopRampRate(0.1);
   }
 
-  public void prepareShoot(double speedM1){
-    motor1.set(speedM1);
+  public void prepareShoot(double speed){
+    motor1.set(speed);
   }
-  public void shoot(double speedM1, double speedM2){
-    motor1.set(speedM1);
-    motor2.set(ControlMode.PercentOutput, speedM2);
+  public void shoot(double speed1, double speed2){
+    motor1.set(speed1);
+    motor2.set(ControlMode.PercentOutput, speed2);
   }
 
 

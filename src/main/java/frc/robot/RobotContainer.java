@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AMP;
 import frc.robot.commands.Autos;
+import frc.robot.commands.Down;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveInvert;
 import frc.robot.commands.ExampleCommand;
@@ -14,7 +15,11 @@ import frc.robot.commands.Humman;
 import frc.robot.commands.OutTake;
 import frc.robot.commands.Speaker;
 import frc.robot.commands.TakeIntake;
+import frc.robot.commands.TurnLeft;
+import frc.robot.commands.TurnRight;
+import frc.robot.commands.Up;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Elevador;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -34,6 +39,7 @@ public class RobotContainer {
   private Chassis m_Chassis;
   private Shooter m_Shooter;
   private Intake m_Intake;
+  private Elevador m_Elevador;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static CommandXboxController m_driverController =
@@ -48,6 +54,7 @@ public class RobotContainer {
     m_Chassis = new Chassis();
     m_Shooter = new Shooter();
     m_Intake = new Intake();
+    m_Elevador = new Elevador();
     configureBindings();
   }
 
@@ -71,13 +78,17 @@ public class RobotContainer {
     //Drive
     m_driverController.rightBumper().whileTrue(new Drive(m_Chassis));
     m_driverController.leftBumper().whileTrue(new DriveInvert(m_Chassis));
+    m_driverController.x().whileTrue(new TurnLeft(m_Chassis));
+    m_driverController.b().whileTrue(new TurnRight(m_Chassis));
 
     //Mecanismos
     m_mechanismsController.b().whileTrue(new Speaker(m_Shooter));
     m_mechanismsController.a().whileTrue(new AMP(m_Shooter));
     m_mechanismsController.y().whileTrue(new Humman(m_Shooter));
     m_mechanismsController.x().whileTrue(new TakeIntake(m_Intake));
-    m_mechanismsController.leftBumper().whileTrue(new OutTake(m_Intake));
+    m_mechanismsController.rightStick().whileTrue(new OutTake(m_Intake));
+    m_mechanismsController.rightBumper().whileTrue(new Up(m_Elevador));
+    m_mechanismsController.leftBumper().whileTrue(new Down(m_Elevador));
   }
 
   /**

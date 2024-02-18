@@ -21,13 +21,19 @@ public final class Constants {
   public static final int MOTORIDR2 = 21;
 
   //ID'S SHOOTER
-  public static final int MOTOR1 = 6;
+  public static final int MOTOR1 = 20;
   public static final int MOTOR2 = 7;
 
   //ID INTAKE
-  public static final int IDINTAKE = 20;
+  public static final int IDINTAKE = 6;
 
+  //ID ELEVADOR
+  public static final int IDELEVADOR = 24;
 
+  //ID CONSTANTES
+  public static final double d = 0.1524;
+  public static final double kPulse = 41;
+  
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kMechanismsControllerPort = 1;

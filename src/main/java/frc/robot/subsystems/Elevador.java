@@ -5,21 +5,24 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Intake extends SubsystemBase {
+public class Elevador extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private CANSparkMax mIntake;
-  public Intake() {
-    mIntake = new CANSparkMax(Constants.IDINTAKE, MotorType.kBrushless);
-    mIntake.setInverted(true);
+  private CANSparkMax mElevador;
+  public Elevador() {
+    mElevador = new CANSparkMax(Constants.IDELEVADOR, MotorType.kBrushless);
+    mElevador.setInverted(false);
+    mElevador.setIdleMode(IdleMode.kBrake);
   }
-  public void moveIntake(double speed){
-    mIntake.set(speed);
+
+  public void moveElevador(double speed){
+    mElevador.set(speed);
   }
 
   /**
