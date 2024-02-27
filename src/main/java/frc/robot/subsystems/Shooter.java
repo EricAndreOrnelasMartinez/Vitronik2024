@@ -7,8 +7,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,20 +19,56 @@ public class Shooter extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private CANSparkMax motor1;
   private VictorSPX motor2;
+  private SparkPIDController m_pidController;
+  private double setPoint;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
+
+
+  
 
   public Shooter() {
     motor1 = new CANSparkMax(Constants.MOTOR1, MotorType.kBrushless);
     motor2 = new VictorSPX(Constants.MOTOR2);
     motor1.setInverted(true);
-    motor1.setOpenLoopRampRate(0.1);
+    //motor1.setOpenLoopRampRate(0.1);
+    m_pidController = motor1.getPIDController();
+
+    kP = 5e-4; 
+    kI = 1e-6;
+    kD = 0; 
+    kIz = 0.02; 
+    kFF = 0.000156; 
+    kMaxOutput = 1; 
+    kMinOutput = -1;
+    maxRPM = 5700;
+    m_pidController.setP(kP);
+    m_pidController.setI(kI);
+    m_pidController.setD(kD);
+    m_pidController.setIZone(kIz);
+    m_pidController.setFF(kFF);
+    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+    
   }
 
   public void prepareShoot(double speed){
-    motor1.set(speed);
+    setPoint = 5676;
+    m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
   }
   public void shoot(double speed1, double speed2){
+    //motor1.set(speed1);
+    motor2.set(ControlMode.PercentOutput, speed2);
+  }
+
+  public void shoot(){
+  }
+  public void human(double speed1, double speed2){
     motor1.set(speed1);
     motor2.set(ControlMode.PercentOutput, speed2);
+  }
+
+  public void stop(){
+    motor1.set(0);
+    motor2.set(ControlMode.PercentOutput, 0);
   }
 
 

@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -14,12 +16,15 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private CANSparkMax mIntake;
+  private VictorSPX motor2;
   public Intake() {
     mIntake = new CANSparkMax(Constants.IDINTAKE, MotorType.kBrushless);
+    motor2 = new VictorSPX(Constants.MOTOR2);
     mIntake.setInverted(true);
   }
-  public void moveIntake(double speed){
+  public void moveIntake(double speed, double speed2){
     mIntake.set(speed);
+    motor2.set(ControlMode.PercentOutput, speed2);
   }
 
   /**

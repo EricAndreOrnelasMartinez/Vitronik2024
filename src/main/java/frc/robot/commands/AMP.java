@@ -38,7 +38,7 @@ public class AMP extends Command {
     m_subsystem.prepareShoot(0.15);
     System.out.println(timer.get());
     if(timer.get()>1){
-      m_subsystem.shoot(0.15, 1);
+      m_subsystem.shoot(0.15, 0.75);
       }
   }
 

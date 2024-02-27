@@ -25,7 +25,7 @@ public class Chassis extends SubsystemBase {
   private CANSparkMax mL2;
   private CANSparkMax mR1;
   private CANSparkMax mR2;
-  private double kp=0.1, ki=0.1, kd=0, kizone=0.025, kff=0, min=246, max=-246;
+  private double kp=0.1, ki=0.1, kd=0, kizone=0.025, kff= 0.000156, min=246, max=-246;
   private PIDController pidController;
   private SparkPIDController pid;
   private AHRS giro;
@@ -38,7 +38,7 @@ public class Chassis extends SubsystemBase {
     pidController = new PIDController(kp, ki, kd);
     pidController.setIZone(kizone); 
     encoderL = new Encoder(8, 9);
-    encoderR = new Encoder(0, 1);
+    encoderR = new Encoder(7, 6);
     encoderR.setReverseDirection(true);
     mL1 = new CANSparkMax(Constants.MOTORIDL1, MotorType.kBrushless);
     mL2 = new CANSparkMax(Constants.MOTORIDL2, MotorType.kBrushless);
@@ -83,63 +83,67 @@ public class Chassis extends SubsystemBase {
       speedL=0;
       speedR=0;
     }
-    mL1.set(speedL*0.5);
-    mL2.set(speedL*0.5);
-    mR1.set(speedR*0.5);
-    mR2.set(speedR*0.5);
+    mL1.set(speedL*0.6);
+    mL2.set(speedL*0.6);
+    mR1.set(speedR*0.6);
+    mR2.set(speedR*0.6);
   }
 
   public void turnLeft(double angle){
-    double error = 20;  //-100                        -80
-    if((giro.getAngle()>angle-error)&&(giro.getAngle()<angle+error)){
-      mL1.set(0);
-      mL2.set(0);
-      mR1.set(0);
-      mR2.set(0);
-      System.out.println("angle= "+giro.getAngle());
-      System.out.println("ALTO");
+    double error = 15;  //-100                        -80
+    double absoluteAngle=(giro.getAngle()%360);
+    if(angle>((absoluteAngle+180)%360)){
+      if((angle>((absoluteAngle-error)%360))&&(angle<((absoluteAngle+error%360)))){
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+        System.out.println("angle= "+giro.getAngle());
+        System.out.println("ALTO");
+        System.out.println("R");
+      }else{
+        mL1.set(-0.2);
+        mL2.set(-0.2);
+        mR1.set(0.2);
+        mR2.set(0.2);
+        System.out.println("angle= "+giro.getAngle());
+        System.out.println("ESTOY GIRANDO R");
+      }
     }else{
-      mL1.set(0.2);
-      mL2.set(0.2);
-      mR1.set(-0.2);
-      mR2.set(-0.2);
-      System.out.println("angle= "+giro.getAngle());
-      System.out.println("ESTOY GIRANDO L");
-    }
-  }
-
-  public void turnRight(double angle){
-    double error = 20;//100                             //80
-    if((giro.getAngle()<angle+error)&&(giro.getAngle()>angle-error)){
-      mL1.set(0);
-      mL2.set(0);
-      mR1.set(0);
-      mR2.set(0);
-      System.out.println("angle= "+giro.getAngle());
-      System.out.println("ALTO");
-    }else{
-      mL1.set(-0.2);
-      mL2.set(-0.2);
-      mR1.set(0.2);
-      mR2.set(0.2);
-      System.out.println("angle= "+giro.getAngle());
-      System.out.println("ESTOY GIRANDO R");
+      if((angle>((absoluteAngle-error)%360))&&(angle<((absoluteAngle+error%360))))
+      {
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+        System.out.println("angle= "+giro.getAngle());
+        System.out.println("ALTO");
+        System.out.println("L");
+      }else{
+        mL1.set(0.2);
+        mL2.set(0.2);
+        mR1.set(-0.2);
+        mR2.set(-0.2);
+        System.out.println("angle= "+giro.getAngle());
+        System.out.println("ESTOY GIRANDO L");
+      }
     }
   }
 
   public void forward(double distance){
     double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
     if((encoderL.getDistance() < rotations)&&(encoderR.getDistance() < rotations)){
-      mL1.set(-0.2);
-      mL2.set(-0.2);
-      mR1.set(-0.2);
-      mR2.set(-0.2);
+      mL1.set(0.2);
+      mL2.set(0.2);
+      mR1.set(0.2);
+      mR2.set(0.2);
     }else{
       mL1.set(0);
       mL2.set(0);
       mR1.set(0);
       mR2.set(0);
     }
+    System.out.println(encoderL.getDistance());
   }
   public void forwardPID(double distance){
     double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);

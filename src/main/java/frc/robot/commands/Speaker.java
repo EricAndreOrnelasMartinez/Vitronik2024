@@ -36,16 +36,16 @@ public class Speaker extends Command {
   public void execute() {
     m_subsystem.prepareShoot(1);
     System.out.println(timer.get());
-    if(timer.get()>1.5){
+    if(timer.get()>2 ){
       m_subsystem.shoot(1, 1);
+      System.out.println("Hello World");
       }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.shoot(0, 0);
-    m_subsystem.prepareShoot(0);
+    m_subsystem.stop();
     timer.stop();
     timer.reset();
   }
