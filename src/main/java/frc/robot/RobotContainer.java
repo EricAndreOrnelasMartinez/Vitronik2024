@@ -11,11 +11,11 @@ import frc.robot.commands.Down;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveInvert;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.Humman;
+import frc.robot.commands.Human;
 import frc.robot.commands.OutTake;
 import frc.robot.commands.Speaker;
 import frc.robot.commands.TakeIntake;
-import frc.robot.commands.TurnLeft;
+import frc.robot.commands.Turn;
 import frc.robot.commands.TurnRight;
 import frc.robot.commands.Up;
 import frc.robot.subsystems.Chassis;
@@ -78,13 +78,13 @@ public class RobotContainer {
     //Drive
     m_driverController.rightBumper().whileTrue(new Drive(m_Chassis));
     m_driverController.leftBumper().whileTrue(new DriveInvert(m_Chassis));
-    m_driverController.x().whileTrue(new TurnLeft(m_Chassis));
+    m_driverController.x().whileTrue(new Turn(m_Chassis));
     m_driverController.b().whileTrue(new TurnRight(m_Chassis));
 
     //Mecanismos
     m_mechanismsController.b().whileTrue(new Speaker(m_Shooter));
     m_mechanismsController.a().whileTrue(new AMP(m_Shooter));
-    m_mechanismsController.y().whileTrue(new Humman(m_Shooter));
+    m_mechanismsController.y().whileTrue(new Human(m_Shooter));
     m_mechanismsController.x().whileTrue(new TakeIntake(m_Intake));
     m_mechanismsController.rightStick().whileTrue(new OutTake(m_Intake));
     m_mechanismsController.rightBumper().whileTrue(new Up(m_Elevador));

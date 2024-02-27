@@ -8,7 +8,7 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class Humman extends Command {
+public class Human extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
 
@@ -17,7 +17,7 @@ public class Humman extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Humman(Shooter subsystem) {
+  public Human(Shooter subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);

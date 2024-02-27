@@ -8,7 +8,7 @@ import frc.robot.subsystems.Chassis;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class TurnLeft extends Command {
+public class Turn extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Chassis m_subsystem;
 
@@ -17,7 +17,7 @@ public class TurnLeft extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TurnLeft(Chassis subsystem) {
+  public Turn(Chassis subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -31,7 +31,7 @@ public class TurnLeft extends Command {
   @Override
   public void execute() {
     double angle = 270;
-    m_subsystem.turnLeft(angle);
+    m_subsystem.turn(angle);
   }
 
   // Called once the command ends or is interrupted.

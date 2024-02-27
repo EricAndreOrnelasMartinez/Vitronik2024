@@ -35,18 +35,17 @@ public class AMP extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.prepareShoot(0.15);
+    m_subsystem.prepareShoot(576.7);
     System.out.println(timer.get());
-    if(timer.get()>1){
-      m_subsystem.shoot(0.15, 0.75);
+    if(timer.get()>2){
+      m_subsystem.shoot(1);
       }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.shoot(0, 0);
-    m_subsystem.prepareShoot(0);
+    m_subsystem.stop();
     timer.stop();
     timer.reset();
   }

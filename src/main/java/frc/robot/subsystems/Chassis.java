@@ -39,27 +39,29 @@ public class Chassis extends SubsystemBase {
     pidController.setIZone(kizone); 
     encoderL = new Encoder(8, 9);
     encoderR = new Encoder(7, 6);
-    encoderR.setReverseDirection(true);
+    encoderR.setReverseDirection(false);
+    encoderL.setReverseDirection(true);
+
     mL1 = new CANSparkMax(Constants.MOTORIDL1, MotorType.kBrushless);
     mL2 = new CANSparkMax(Constants.MOTORIDL2, MotorType.kBrushless);
     mR1 = new CANSparkMax(Constants.MOTORIDR1, MotorType.kBrushless);
     mR2 = new CANSparkMax(Constants.MOTORIDR2, MotorType.kBrushless);
+
     mL1.setInverted(true);
     mL2.setInverted(true);
     mR1.setInverted(false);
     mR2.setInverted(false);
+
     mL1.setOpenLoopRampRate(0.1);
     mL2.setOpenLoopRampRate(0.1);
     mR1.setOpenLoopRampRate(0.1);
     mR2.setOpenLoopRampRate(0.1);
+
     mL1.setIdleMode(IdleMode.kBrake);
     mL2.setIdleMode(IdleMode.kBrake);
     mR1.setIdleMode(IdleMode.kBrake);
     mR2.setIdleMode(IdleMode.kBrake);
-    //mL1.setClosedLoopRampRate(0.1);
-    //mL2.setClosedLoopRampRate(0.1);
-    //mR1.setClosedLoopRampRate(0.1);
-    //mR2.setClosedLoopRampRate(0.1); 
+    
     pid = mL1.getPIDController();   
     pid.setP(kp);
     pid.setD(kd);
@@ -89,7 +91,7 @@ public class Chassis extends SubsystemBase {
     mR2.set(speedR*0.6);
   }
 
-  public void turnLeft(double angle){
+  public void turn(double angle){
     double error = 15;  //-100                        -80
     double absoluteAngle=(giro.getAngle()%360);
     if(angle>((absoluteAngle+180)%360)){
@@ -132,6 +134,7 @@ public class Chassis extends SubsystemBase {
 
   public void forward(double distance){
     double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
+    System.out.println(rotations);
     if((encoderL.getDistance() < rotations)&&(encoderR.getDistance() < rotations)){
       mL1.set(0.2);
       mL2.set(0.2);

@@ -24,7 +24,9 @@ public class Elevador extends SubsystemBase {
   public void moveElevador(double speed){
     mElevador.set(speed);
   }
-
+  public void stop(){
+    mElevador.set(0);
+  }
   /**
    * Example command factory method.
    *

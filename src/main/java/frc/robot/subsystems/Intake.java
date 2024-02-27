@@ -25,6 +25,10 @@ public class Intake extends SubsystemBase {
   public void moveIntake(double speed, double speed2){
     mIntake.set(speed);
     motor2.set(ControlMode.PercentOutput, speed2);
+  } 
+  public void stop(){
+    mIntake.set(0);
+    motor2.set(ControlMode.PercentOutput, 0);
   }
 
   /**
