@@ -85,10 +85,10 @@ public class Chassis extends SubsystemBase {
       speedL=0;
       speedR=0;
     }
-    mL1.set(speedL*0.6);
-    mL2.set(speedL*0.6);
-    mR1.set(speedR*0.6);
-    mR2.set(speedR*0.6);
+    mL1.set(speedL*0.8);
+    mL2.set(speedL*0.8);
+    mR1.set(speedR*0.8);
+    mR2.set(speedR*0.8);
   }
 
   public void turn(double angle){
@@ -135,18 +135,35 @@ public class Chassis extends SubsystemBase {
   public void forward(double distance){
     double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
     System.out.println(rotations);
-    if((encoderL.getDistance() < rotations)&&(encoderR.getDistance() < rotations)){
-      mL1.set(0.2);
-      mL2.set(0.2);
-      mR1.set(0.2);
-      mR2.set(0.2);
+    if(rotations > 0){
+      if((encoderL.getDistance() < rotations)&&(encoderR.getDistance() < rotations)){
+        mL1.set(0.2);
+        mL2.set(0.2);
+        mR1.set(0.2);
+        mR2.set(0.2);
+      }else{
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+      }
     }else{
-      mL1.set(0);
-      mL2.set(0);
-      mR1.set(0);
-      mR2.set(0);
+      if((encoderL.getDistance() > rotations)&&(encoderR.getDistance() > rotations)){
+        mL1.set(-0.2);
+        mL2.set(-0.2);
+        mR1.set(-0.2);
+        mR2.set(-0.2);
+      }else{
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+      }    
     }
     System.out.println(encoderL.getDistance());
+    SmartDashboard.putNumber("Rotations", rotations);
+    SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
+    SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
   }
   public void forwardPID(double distance){
     double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);

@@ -32,9 +32,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     
     cam1 =CameraServer.startAutomaticCapture(0);
-    cam2 = CameraServer.startAutomaticCapture(1);
     cam1.setBrightness(30);
     cam1.setResolution(10, 10);
+    cam2 = CameraServer.startAutomaticCapture(1);
     cam2.setBrightness(30);
     cam2.setResolution(10, 10);
     
