@@ -46,7 +46,7 @@ public class Autonomo extends Command {
 
     //System.out.println(timer.get());
     if(timer.get()<0.1){
-      m_shooter.human(0.3, 0.1);
+      m_shooter.human(0.5, 0.1);
     }else if(timer.get() > 0.1 && timer.get() < 0.7){
       m_shooter.human(0,0);
     }else if(timer.get() > 1.7 && timer.get() < 2.1){
@@ -58,7 +58,7 @@ public class Autonomo extends Command {
     }else if(timer.get() > 6.1 && timer.get() < 6.7){
       m_shooter.stop();
     }else if(timer.get() > 6.7 && timer.get() < 9){
-      m_chassis.forward(1 );
+      m_chassis.forward(-1.5);
     }else{
       m_chassis.move(0, 0);
     }
