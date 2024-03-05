@@ -53,6 +53,9 @@ public class Shooter extends SubsystemBase {
   public void prepareShoot(double setPoint){
     m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
   }
+  public void prepare(double speed){
+    motor1.set(speed);
+  }
   public void shoot(double speed){
     motor2.set(ControlMode.PercentOutput, speed);
   }

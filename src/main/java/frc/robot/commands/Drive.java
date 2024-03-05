@@ -4,8 +4,9 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
+import frc.robot.RobotContainer;  
 import frc.robot.subsystems.Chassis;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
@@ -31,8 +32,8 @@ public class Drive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = RobotContainer.m_driverController.getLeftX()*-1;
-    double y = RobotContainer.m_driverController.getLeftY();
+    double x = RobotContainer.m_driverController.getRawAxis(0)*-1;
+    double y = RobotContainer.m_driverController.getRawAxis(1);
     m_subsystem.move(x, y);
   }
 

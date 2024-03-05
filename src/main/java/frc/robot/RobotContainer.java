@@ -23,6 +23,7 @@ import frc.robot.subsystems.Elevador;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -38,19 +39,18 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public Chassis m_Chassis;
   public Shooter m_Shooter;
-  private Intake m_Intake;
+  public Intake m_Intake;
   private Elevador m_Elevador;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  public static Joystick m_driverController = new Joystick(0);
 
   public static CommandXboxController m_mechanismsController =
       new CommandXboxController(OperatorConstants.kMechanismsControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
+    // Configure the trigger binding
     m_Chassis = new Chassis();
     m_Shooter = new Shooter();
     m_Intake = new Intake();
@@ -76,10 +76,10 @@ public class RobotContainer {
     // cancelling on release.
 
     //Drive
-    m_driverController.rightBumper().whileTrue(new Drive(m_Chassis));
-    m_driverController.leftBumper().whileTrue(new DriveInvert(m_Chassis));
-    m_driverController.x().whileTrue(new Turn(m_Chassis));
-    m_driverController.b().whileTrue(new TurnRight(m_Chassis));
+    //m_driverController.rightBumper().whileTrue(new Drive(m_Chassis));
+    //m_driverController.leftBumper().whileTrue(new DriveInvert(m_Chassis));
+    //m_driverController.x().whileTrue(new Turn(m_Chassis));
+    //m_driverController.b().whileTrue(new TurnRight(m_Chassis));
 
     //Mecanismos
     m_mechanismsController.b().whileTrue(new Speaker(m_Shooter));

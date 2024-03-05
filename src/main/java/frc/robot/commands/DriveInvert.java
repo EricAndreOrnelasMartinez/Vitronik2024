@@ -31,9 +31,9 @@ public class DriveInvert extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = RobotContainer.m_driverController.getLeftX()*-1;
-    double y = RobotContainer.m_driverController.getLeftY()*-1;
-    m_subsystem.move(x, y);
+    //double x = RobotContainer.m_driverController.getLeftX()*-1;
+    //double y = RobotContainer.m_driverController.getLeftY()*-1;
+    //m_subsystem.move(x, y);
   }
 
   // Called once the command ends or is interrupted.

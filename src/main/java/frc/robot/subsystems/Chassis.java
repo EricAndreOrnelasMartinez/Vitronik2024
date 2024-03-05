@@ -51,31 +51,32 @@ public class Chassis extends SubsystemBase {
     mL2.setInverted(true);
     mR1.setInverted(false);
     mR2.setInverted(false);
-
-    mL1.setOpenLoopRampRate(0.1);
-    mL2.setOpenLoopRampRate(0.1);
-    mR1.setOpenLoopRampRate(0.1);
-    mR2.setOpenLoopRampRate(0.1);
-
-    mL1.setIdleMode(IdleMode.kBrake);
-    mL2.setIdleMode(IdleMode.kBrake);
-    mR1.setIdleMode(IdleMode.kBrake);
-    mR2.setIdleMode(IdleMode.kBrake);
     
-    pid = mL1.getPIDController();   
-    pid.setP(kp);
-    pid.setD(kd);
-    pid.setI(ki);
-    pid.setFF(kff);
-    pid.setIZone(kizone);
-    pid.setOutputRange(min, max);
-    SmartDashboard.putNumber("P Gain ", kp);
-    SmartDashboard.putNumber("I Gain " , ki );
-    SmartDashboard.putNumber("D Gain ", kd);
-    SmartDashboard.putNumber("I Zone ", kizone);
-    SmartDashboard.putNumber("Feed Forward ", kff);
-    SmartDashboard.putNumber("Min Output ", min);
-    SmartDashboard.putNumber("Max Output ", max);
+
+    mL1.setOpenLoopRampRate(0.08);
+    mL2.setOpenLoopRampRate(0.08);
+    mR1.setOpenLoopRampRate(0.08);
+    mR2.setOpenLoopRampRate(0.08);
+
+    mL1.setIdleMode(IdleMode.kCoast);
+    mL2.setIdleMode(IdleMode.kCoast);
+    mR1.setIdleMode(IdleMode.kCoast);
+    mR2.setIdleMode(IdleMode.kCoast);
+    
+    //pid = mL1.getPIDController();   
+    //pid.setP(kp);
+    //pid.setD(kd);
+    //pid.setI(ki);
+    //pid.setFF(kff);
+    //pid.setIZone(kizone);
+    //pid.setOutputRange(min, max);
+    //SmartDashboard.putNumber("P Gain ", kp);
+    //SmartDashboard.putNumber("I Gain " , ki );
+    //SmartDashboard.putNumber("D Gain ", kd);
+    //SmartDashboard.putNumber("I Zone ", kizone);
+    //SmartDashboard.putNumber("Feed Forward ", kff);
+    //SmartDashboard.putNumber("Min Output ", min);
+    //SmartDashboard.putNumber("Max Output ", max);
   }
 
   public void move(double x, double y){
@@ -85,10 +86,30 @@ public class Chassis extends SubsystemBase {
       speedL=0;
       speedR=0;
     }
-    mL1.set(speedL*0.8);
-    mL2.set(speedL*0.8);
-    mR1.set(speedR*0.8);
-    mR2.set(speedR*0.8);
+    mL1.set(speedL);
+    mL2.set(speedL*0.7);
+    mR1.set(speedR*0.7);
+    mR2.set(speedR);
+    SmartDashboard.putNumber("ML2 Temp", mL2.getMotorTemperature());
+    SmartDashboard.putNumber("MR1 Temp", mR1.getMotorTemperature());
+  }
+
+  public void vitronavx(double vueltas){
+    double rotationsR = -(vueltas*Constants.kPulse);
+    double rotationsL = (vueltas*Constants.kPulse);
+    if((encoderL.getDistance() < rotationsL)&&(encoderR.getDistance() > rotationsR)){
+        mL1.set(0.1);
+        mL2.set(0.1);
+        mR1.set(-0.1);
+        mR2.set(-0.1);
+      }else{
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+      }
+    SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
+    SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
   }
 
   public void turn(double angle){
@@ -165,28 +186,28 @@ public class Chassis extends SubsystemBase {
     SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
     SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
   }
-  public void forwardPID(double distance){
-    double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
-    double p = SmartDashboard.getNumber("P Gain " , 0);
-    double i = SmartDashboard.getNumber("I Gain ", 0);
-    double d = SmartDashboard.getNumber("D Gain ", 0);
-    double iz = SmartDashboard.getNumber("I Zone " , 0);
-    double ff = SmartDashboard.getNumber("Feed Forward ", 0);
-    double max = SmartDashboard.getNumber("Max Output ", 0);
-    double min = SmartDashboard.getNumber("Min Output ", 0);
-
-    if((p != pid.getP())) { pid.setP(p);}
-    if((i != pid.getI())) { pid.setI(i);}
-    if((d != pid.getD())) { pid.setD(d);}
-    if((iz != pid.getIZone())) { pid.setIZone(iz);}
-    if((ff != pid.getFF())) { pid.setFF(ff);}
-    if((max != pid.getOutputMax()) || (min != pid.getOutputMin())) { 
-      pid.setOutputRange(min, max);
-    }
-
-    pid.setReference(rotations, ControlType.kPosition);
-    //pidController.
-  }
+  //public void forwardPID(double distance){
+  //  double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
+  //  double p = SmartDashboard.getNumber("P Gain " , 0);
+  //  double i = SmartDashboard.getNumber("I Gain ", 0);
+  //  double d = SmartDashboard.getNumber("D Gain ", 0);
+  //  double iz = SmartDashboard.getNumber("I Zone " , 0);
+  //  double ff = SmartDashboard.getNumber("Feed Forward ", 0);
+  //  double max = SmartDashboard.getNumber("Max Output ", 0);
+  //  double min = SmartDashboard.getNumber("Min Output ", 0);
+//
+  //  if((p != pid.getP())) { pid.setP(p);}
+  //  if((i != pid.getI())) { pid.setI(i);}
+  //  if((d != pid.getD())) { pid.setD(d);}
+  //  if((iz != pid.getIZone())) { pid.setIZone(iz);}
+  //  if((ff != pid.getFF())) { pid.setFF(ff);}
+  //  if((max != pid.getOutputMax()) || (min != pid.getOutputMin())) { 
+  //    pid.setOutputRange(min, max);
+  //  }
+//
+  //  pid.setReference(rotations, ControlType.kPosition);
+  //  //pidController.
+  //}
   /**
    * Example command factory method.
    *
