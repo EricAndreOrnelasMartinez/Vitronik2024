@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AMP;
+import frc.robot.commands.Autonomo;
 import frc.robot.commands.Autos;
+import frc.robot.commands.BackAuto;
 import frc.robot.commands.Down;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveInvert;
@@ -41,6 +43,7 @@ public class RobotContainer {
   public Shooter m_Shooter;
   public Intake m_Intake;
   private Elevador m_Elevador;
+  private Command m_autonomousCommand, backAuto;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static Joystick m_driverController = new Joystick(0);
@@ -56,6 +59,8 @@ public class RobotContainer {
     m_Intake = new Intake();
     m_Elevador = new Elevador();
     configureBindings();
+    m_autonomousCommand = new Autonomo(m_Chassis,m_Shooter,m_Intake);
+    backAuto = new BackAuto(m_Chassis,m_Shooter, m_Intake);
   }
 
   /**
@@ -96,8 +101,14 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(String auto) {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    if(auto.equals("A")){
+      return m_autonomousCommand;
+    }else if(auto.equals("B")){
+      return backAuto;
+    }else{
+      return null;
+    }
   }
 }

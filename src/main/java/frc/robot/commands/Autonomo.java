@@ -4,9 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Timer;
@@ -19,7 +17,6 @@ public class Autonomo extends Command {
   private final Shooter m_shooter;
   private final Intake m_Intake;
   private Timer timer;
-  private Command shCommand;
 
   /**
    * Creates a new ExampleCommand.
@@ -31,7 +28,6 @@ public class Autonomo extends Command {
       this.m_shooter= m_shooter;
       this.m_Intake = m_Intake;
       timer = new Timer();
-      shCommand = new Speaker(m_shooter);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_chassis, m_shooter);
   }

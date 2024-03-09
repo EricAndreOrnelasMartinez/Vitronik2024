@@ -25,9 +25,6 @@ public class Chassis extends SubsystemBase {
   private CANSparkMax mL2;
   private CANSparkMax mR1;
   private CANSparkMax mR2;
-  private double kp=0.1, ki=0.1, kd=0, kizone=0.025, kff= 0.000156, min=246, max=-246;
-  private PIDController pidController;
-  private SparkPIDController pid;
   private AHRS giro;
 
   private Encoder encoderL;
@@ -35,8 +32,6 @@ public class Chassis extends SubsystemBase {
 
   public Chassis() {
     giro = new AHRS(SPI.Port.kMXP);
-    pidController = new PIDController(kp, ki, kd);
-    pidController.setIZone(kizone); 
     encoderL = new Encoder(8, 9);
     encoderR = new Encoder(7, 6);
     encoderR.setReverseDirection(false);
@@ -62,21 +57,6 @@ public class Chassis extends SubsystemBase {
     mL2.setIdleMode(IdleMode.kCoast);
     mR1.setIdleMode(IdleMode.kCoast);
     mR2.setIdleMode(IdleMode.kCoast);
-    
-    //pid = mL1.getPIDController();   
-    //pid.setP(kp);
-    //pid.setD(kd);
-    //pid.setI(ki);
-    //pid.setFF(kff);
-    //pid.setIZone(kizone);
-    //pid.setOutputRange(min, max);
-    //SmartDashboard.putNumber("P Gain ", kp);
-    //SmartDashboard.putNumber("I Gain " , ki );
-    //SmartDashboard.putNumber("D Gain ", kd);
-    //SmartDashboard.putNumber("I Zone ", kizone);
-    //SmartDashboard.putNumber("Feed Forward ", kff);
-    //SmartDashboard.putNumber("Min Output ", min);
-    //SmartDashboard.putNumber("Max Output ", max);
   }
 
   public void move(double x, double y){
@@ -185,6 +165,10 @@ public class Chassis extends SubsystemBase {
     SmartDashboard.putNumber("Rotations", rotations);
     SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
     SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
+  }
+  public void resetEncoders(){
+    encoderL.reset();
+    encoderR.reset();
   }
   //public void forwardPID(double distance){
   //  double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
