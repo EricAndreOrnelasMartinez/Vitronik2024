@@ -39,14 +39,16 @@ public class Robot extends TimedRobot {
     cam1 = CameraServer.startAutomaticCapture(0);
     cam1.setBrightness(30);
     cam1.setResolution(10, 10);
+    cam1.setFPS(5);
     cam2 = CameraServer.startAutomaticCapture(1);
     cam2.setBrightness(30);
     cam2.setResolution(10, 10);
+    cam2.setFPS(18);
     
     m_robotContainer = new RobotContainer();
     drive = new Drive(m_robotContainer.m_Chassis);
     m_chooser.addOption("Auto speaker", "A");
-    m_chooser.addOption("Auto atras", "B");
+    m_chooser.setDefaultOption("Auto atras", "B");
     m_chooser.addOption("Auto derecha", "C");
     m_chooser.addOption("Auto izquiera", "D");
     m_chooser.addOption("Amp", "E");

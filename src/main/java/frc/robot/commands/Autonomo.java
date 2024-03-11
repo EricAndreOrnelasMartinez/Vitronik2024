@@ -35,6 +35,8 @@ public class Autonomo extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_chassis.resetEncoders();
+    timer.reset();
     timer.start();
   }
 
@@ -51,16 +53,27 @@ public class Autonomo extends Command {
         m_shooter.prepareShoot(5676);
       }else if(timer.get() > 4.1 && timer.get() < 6.1){
         m_shooter.shoot(1);      
-      }else if(timer.get() > 6.1 && timer.get() < 6.7){
+      }else if(timer.get() > 6.1 && timer.get() < 10){
         m_shooter.stop();
-      }else if(timer.get() > 6.7 && timer.get() < 14){
-        if(timer.get() > 6.7 && timer.get() < 7.7){
-          m_Intake.moveIntake(0.5, 0.2);
+        m_chassis.forward(-1.5);
+        if(timer.get() > 6.1 && timer.get() < 8.7){
+          m_Intake.moveIntake(0.8, 0.2);
         }else{
           m_Intake.stop();
         }
-        m_chassis.forward(-3.5);
-      }else{
+      }else if(timer.get() > 10 && timer.get() < 10.2){
+        m_chassis.resetEncoders();
+      }else if(timer.get() > 10.2 && timer.get() < 13.1){
+        m_shooter.prepareShoot(5676);
+        m_chassis.forward(1.5);
+      }else if(timer.get() > 13.1 && timer.get() < 14 ){
+        m_shooter.shoot(1);
+        m_chassis.move(0, 0);
+        m_chassis.resetEncoders();
+      }else if(timer.get() > 14 && timer.get() < 16){
+        m_chassis.forward(-1.5);
+        m_shooter.stop();
+      }else if(timer.get() > 16){
         m_chassis.move(0, 0);
       }
 
@@ -108,7 +121,11 @@ public class Autonomo extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_chassis.move(0, 0);
+    m_Intake.stop();
+    m_shooter.stop();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -31,7 +31,7 @@ public class TakeIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.moveIntake(0.7, 0.3);
+    m_subsystem.moveIntake(0.8, 0.3);
   }
 
   // Called once the command ends or is interrupted.
