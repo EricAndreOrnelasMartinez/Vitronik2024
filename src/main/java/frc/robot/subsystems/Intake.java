@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,15 +18,30 @@ public class Intake extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private CANSparkMax mIntake;
   private VictorSPX motor2;
+
+  public static DigitalInput limit;
+
   public Intake() {
     mIntake = new CANSparkMax(Constants.IDINTAKE, MotorType.kBrushless);
     motor2 = new VictorSPX(Constants.MOTOR2);
+    limit = new DigitalInput(5);
+  
     mIntake.setInverted(true);
   }
   public void moveIntake(double speed, double speed2){
+    if(!limit.get()){
+      mIntake.set(0);
+      motor2.set(ControlMode.PercentOutput, 0);
+    }else{
+      mIntake.set(speed);
+      motor2.set(ControlMode.PercentOutput, speed2);
+    }
+  }
+  public void outIntake(double speed){
     mIntake.set(speed);
-    motor2.set(ControlMode.PercentOutput, speed2);
-  } 
+    motor2.set(ControlMode.PercentOutput, speed);
+  }
+
   public void stop(){
     mIntake.set(0);
     motor2.set(ControlMode.PercentOutput, 0);

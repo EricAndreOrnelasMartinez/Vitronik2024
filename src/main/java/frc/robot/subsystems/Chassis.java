@@ -60,8 +60,8 @@ public class Chassis extends SubsystemBase {
   }
 
   public void move(double x, double y){
-    double speedL = (y+(x*0.8));
-    double speedR = (y-(x*0.8));
+    double speedL = (y+(x));
+    double speedR = (y-(x));
     if((Math.abs(x)<0.1)&&(Math.abs(y)<0.1)){
       speedL=0;
       speedR=0;
@@ -70,8 +70,6 @@ public class Chassis extends SubsystemBase {
     mL2.set(speedL*0.7);
     mR1.set(speedR*0.7);
     mR2.set(speedR);
-    SmartDashboard.putNumber("ML2 Temp", mL2.getMotorTemperature());
-    SmartDashboard.putNumber("MR1 Temp", mR1.getMotorTemperature());
   }
 
   public void vitronavx(double vueltas){
