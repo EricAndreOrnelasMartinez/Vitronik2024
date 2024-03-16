@@ -64,7 +64,7 @@ public class SpeakerRigthAuto extends Command {
         m_chassis.move(0, 0);
         m_chassis.resetEncoders();
       }else if(timer.get() > 14 && timer.get() < 16){
-        m_chassis.forward(-1.5);
+        m_chassis.forward(-1.5 );
         m_shooter.stop();
         m_Intake.moveIntake(1, 0.3);
       }else if(timer.get() > 16){
