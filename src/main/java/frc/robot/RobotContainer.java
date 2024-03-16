@@ -7,25 +7,20 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AMP;
 import frc.robot.commands.Autonomo;
-import frc.robot.commands.Autos;
 import frc.robot.commands.BackAuto;
 import frc.robot.commands.Down;
-import frc.robot.commands.Drive;
-import frc.robot.commands.DriveInvert;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Human;
 import frc.robot.commands.OutTake;
 import frc.robot.commands.Speaker;
+import frc.robot.commands.SpeakerRigthAuto;
 import frc.robot.commands.TakeIntake;
-import frc.robot.commands.Turn;
-import frc.robot.commands.TurnRight;
 import frc.robot.commands.Up;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevador;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -43,13 +38,14 @@ public class RobotContainer {
   public Shooter m_Shooter;
   public Intake m_Intake;
   private Elevador m_Elevador;
-  private Command m_autonomousCommand, backAuto;
+  private Command m_autonomousCommand, backAuto, m_speakerRigth;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static Joystick m_driverController = new Joystick(0);
+  public static CommandXboxController m_driverController =
+      new CommandXboxController(Constants.OperatorConstants.kDriverControllerPort);
 
   public static CommandXboxController m_mechanismsController =
-      new CommandXboxController(OperatorConstants.kMechanismsControllerPort);
+      new CommandXboxController(Constants.OperatorConstants.kMechanismsControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -61,6 +57,7 @@ public class RobotContainer {
     configureBindings();
     m_autonomousCommand = new Autonomo(m_Chassis,m_Shooter,m_Intake);
     backAuto = new BackAuto(m_Chassis,m_Shooter, m_Intake);
+    m_speakerRigth = new SpeakerRigthAuto(m_Chassis, m_Shooter, m_Intake);
   }
 
   /**
@@ -107,6 +104,8 @@ public class RobotContainer {
       return m_autonomousCommand;
     }else if(auto.equals("B")){
       return backAuto;
+    }else if(auto.equals("C")){
+      return m_speakerRigth;
     }else{
       return null;
     }

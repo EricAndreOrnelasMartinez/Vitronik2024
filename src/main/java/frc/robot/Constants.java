@@ -33,6 +33,10 @@ public final class Constants {
   //ID CONSTANTES
   public static final double d = 0.1524;
   public static final double kPulse = 1800;
+
+  //public static final int kDriverControllerPort = 0;
+  //public static final int kMechanismsControllerPort = 1;
+  
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

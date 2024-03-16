@@ -67,19 +67,19 @@ public class Chassis extends SubsystemBase {
       speedR=0;
     }
     mL1.set(speedL);
-    mL2.set(speedL*0.7);
-    mR1.set(speedR*0.7);
+    mL2.set(speedL);
+    mR1.set(speedR);
     mR2.set(speedR);
   }
 
   public void vitronavx(double vueltas){
     double rotationsR = -(vueltas*Constants.kPulse);
     double rotationsL = (vueltas*Constants.kPulse);
-    if((encoderL.getDistance() < rotationsL)&&(encoderR.getDistance() > rotationsR)){
-        mL1.set(0.1);
-        mL2.set(0.1);
-        mR1.set(-0.1);
-        mR2.set(-0.1);
+    if((encoderL.getDistance() > rotationsL)&&(encoderR.getDistance() < rotationsR)){
+        mL1.set(-0.1);
+        mL2.set(-0.1);
+        mR1.set(0.1);
+        mR2.set(0.1);
       }else{
         mL1.set(0);
         mL2.set(0);
