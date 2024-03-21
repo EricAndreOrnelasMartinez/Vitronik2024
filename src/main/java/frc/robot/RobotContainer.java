@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Human;
 import frc.robot.commands.OutTake;
 import frc.robot.commands.Speaker;
+import frc.robot.commands.SpeakerLeftAuto;
 import frc.robot.commands.SpeakerRigthAuto;
 import frc.robot.commands.TakeIntake;
 import frc.robot.commands.Up;
@@ -38,7 +39,7 @@ public class RobotContainer {
   public Shooter m_Shooter;
   public Intake m_Intake;
   private Elevador m_Elevador;
-  private Command m_autonomousCommand, backAuto, m_speakerRigth;
+  private Command m_autonomousCommand, backAuto, m_speakerRigth, m_speakerLeft ;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static CommandXboxController m_driverController =
@@ -58,6 +59,7 @@ public class RobotContainer {
     m_autonomousCommand = new Autonomo(m_Chassis,m_Shooter,m_Intake);
     backAuto = new BackAuto(m_Chassis,m_Shooter, m_Intake);
     m_speakerRigth = new SpeakerRigthAuto(m_Chassis, m_Shooter, m_Intake);
+    m_speakerLeft = new SpeakerLeftAuto(m_Chassis, m_Shooter, m_Intake);
   }
 
   /**
@@ -106,6 +108,8 @@ public class RobotContainer {
       return backAuto;
     }else if(auto.equals("C")){
       return m_speakerRigth;
+    }else if(auto.equals("D")){
+      return m_speakerLeft;
     }else{
       return null;
     }
