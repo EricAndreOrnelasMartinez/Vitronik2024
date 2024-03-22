@@ -31,7 +31,6 @@ public class Shooter extends SubsystemBase {
     motor1 = new CANSparkMax(Constants.MOTOR1, MotorType.kBrushless);
     motor2 = new VictorSPX(Constants.MOTOR2);
     motor1.setInverted(true);
-    motor1.setOpenLoopRampRate(0.1);
     m_pidController = motor1.getPIDController();
     
 
@@ -50,9 +49,6 @@ public class Shooter extends SubsystemBase {
     m_pidController.setFF(kFF);
     m_pidController.setOutputRange(kMinOutput, kMaxOutput);
     
-  }
-  public void neo(double speed){
-    motor1.set(speed);
   }
 
   public void prepareShoot(double setPoint){

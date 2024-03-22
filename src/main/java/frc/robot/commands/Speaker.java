@@ -38,7 +38,6 @@ public class Speaker extends Command {
     if(timer.get()>2 ){
       m_subsystem.shoot(1);
       }
-    
   }
 
   // Called once the command ends or is interrupted.
