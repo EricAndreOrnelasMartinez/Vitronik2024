@@ -56,8 +56,8 @@ public class Autonomo extends Command {
       }else if(timer.get() > 6.1 && timer.get() < 10){
         m_shooter.stop();
         m_chassis.forward(-1.5);
-        if(timer.get() > 6.1 && timer.get() < 8.7){
-          m_Intake.moveIntake(0.8, 0.2);
+        if(timer.get() > 6.1 && timer.get() < 8.9){//8.7
+          m_Intake.moveIntake(0.8, 0.2, 0);
         }else{
           m_Intake.stop();
         }

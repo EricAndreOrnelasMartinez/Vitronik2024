@@ -59,14 +59,14 @@ public class SpeakerLeftAuto extends Command {
       }else if(timer.get() > 10 && timer.get() < 10.2){
         m_chassis.resetEncoders();
       }else if(timer.get() > 10.2 && timer.get() < 13.1){
-        m_chassis.vitronavx(0.6);
+        m_chassis.vitronavx(0.5);
       }else if(timer.get() > 13.1 && timer.get() < 14 ){
         m_chassis.move(0, 0);
         m_chassis.resetEncoders();
       }else if(timer.get() > 14 && timer.get() < 16){
         m_chassis.forward(-1.5 );
         m_shooter.stop();
-        m_Intake.moveIntake(1, 0.3);
+        m_Intake.moveIntake(1, 0.3, 0);
       }else if(timer.get() > 16){
         m_chassis.move(0, 0);
       }

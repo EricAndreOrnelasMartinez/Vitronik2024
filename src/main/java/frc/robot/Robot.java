@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
     cam2 = CameraServer.startAutomaticCapture(1);
     cam2.setBrightness(30);
     cam2.setResolution(10, 10);
-    cam2.setFPS(18);
+    cam2.setFPS(5);
     
     m_robotContainer = new RobotContainer();
     drive = new Drive(m_robotContainer.m_Chassis);

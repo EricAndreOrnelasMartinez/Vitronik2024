@@ -60,8 +60,8 @@ public class Chassis extends SubsystemBase {
   }
 
   public void move(double x, double y){
-    double speedL = (y+(x));
-    double speedR = (y-(x));
+    double speedL = (y+(x*0.5));
+    double speedR = (y-(x*0.5));
     if((Math.abs(x)<0.1)&&(Math.abs(y)<0.1)){
       speedL=0;
       speedR=0;
@@ -73,9 +73,10 @@ public class Chassis extends SubsystemBase {
   }
 
   public void vitronavx(double vueltas){
-    double rotationsR = -(vueltas*Constants.kPulse);
-    double rotationsL = (vueltas*Constants.kPulse);
-    if((encoderL.getDistance() > rotationsL)&&(encoderR.getDistance() < rotationsR)){
+    if(vueltas<0){  //- derecha
+      double rotationsR = -(vueltas*Constants.kPulse);
+      double rotationsL = (vueltas*Constants.kPulse);
+      if((encoderL.getDistance() > rotationsL)&&(encoderR.getDistance() < rotationsR)){
         mL1.set(-0.1);
         mL2.set(-0.1);
         mR1.set(0.1);
@@ -86,8 +87,21 @@ public class Chassis extends SubsystemBase {
         mR1.set(0);
         mR2.set(0);
       }
-    SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
-    SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
+    }else{  //+ izquierda
+      double rotationsR = -(vueltas*Constants.kPulse);
+      double rotationsL = (vueltas*Constants.kPulse);
+      if((encoderL.getDistance() < rotationsL)&&(encoderR.getDistance() > rotationsR)){
+        mL1.set(0.1);
+        mL2.set(0.1);
+        mR1.set(-0.1);
+        mR2.set(-0.1);
+      }else{
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+      }
+    }
   }
 
   public void turn(double angle){
