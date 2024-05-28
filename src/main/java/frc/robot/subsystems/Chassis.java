@@ -28,7 +28,9 @@ public class Chassis extends SubsystemBase {
   private AHRS giro;
 
   private Encoder encoderL;
-  private Encoder encoderR;
+  private Encoder encoderR; 
+  private PIDController m_PidController;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
 
   public Chassis() {
     giro = new AHRS(SPI.Port.kMXP);
@@ -66,10 +68,10 @@ public class Chassis extends SubsystemBase {
       speedL=0;
       speedR=0;
     }
-    mL1.set(speedL);
-    mL2.set(speedL);
-    mR1.set(speedR);
-    mR2.set(speedR);
+    mL1.set(speedL*0.3);
+    mL2.set(speedL*0.3);
+    mR1.set(speedR*0.3);
+    mR2.set(speedR*0.3);
   }
 
   public void vitronavx(double vueltas){
@@ -178,12 +180,45 @@ public class Chassis extends SubsystemBase {
     SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
     SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
   }
+  public void fastForward(double distance){
+    double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
+    System.out.println(rotations);
+    if(rotations > 0){
+      if((encoderL.getDistance() < rotations)&&(encoderR.getDistance() < rotations)){
+        mL1.set(1);
+        mL2.set(1);
+        mR1.set(1);
+        mR2.set(1);
+      }else{
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+      }
+    }else{
+      if((encoderL.getDistance() > rotations)&&(encoderR.getDistance() > rotations)){
+        mL1.set(-1);
+        mL2.set(-1);
+        mR1.set(-1);
+        mR2.set(-1);
+      }else{
+        mL1.set(0);
+        mL2.set(0);
+        mR1.set(0);
+        mR2.set(0);
+      }    
+    }
+    System.out.println(encoderL.getDistance());
+    SmartDashboard.putNumber("Rotations", rotations);
+    SmartDashboard.putNumber("EncoderR", encoderR.getDistance());
+    SmartDashboard.putNumber("EncoderL", encoderL.getDistance());
+  }
   public void resetEncoders(){
     encoderL.reset();
     encoderR.reset();
   }
-  //public void forwardPID(double distance){
-  //  double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
+  public void forwardPID(double distance){
+    double rotations = (distance*Constants.kPulse)/(Constants.d*Math.PI);
   //  double p = SmartDashboard.getNumber("P Gain " , 0);
   //  double i = SmartDashboard.getNumber("I Gain ", 0);
   //  double d = SmartDashboard.getNumber("D Gain ", 0);
@@ -199,11 +234,26 @@ public class Chassis extends SubsystemBase {
   //  if((ff != pid.getFF())) { pid.setFF(ff);}
   //  if((max != pid.getOutputMax()) || (min != pid.getOutputMin())) { 
   //    pid.setOutputRange(min, max);
-  //  }
+    //m_PidController = encoderL.ge
+
+    kP = 5e-4; 
+    kI = 1e-6;
+    kD = 0; 
+    kIz = 0.02; 
+    kFF = 0.000156; 
+    kMaxOutput = 1; 
+    kMinOutput = -1;
+    maxRPM = 5700;
+    m_PidController.setP(kP);
+    m_PidController.setI(kI);
+    m_PidController.setD(kD);
+    m_PidController.setIZone(kIz);
+    //m_PidController.set
+    m_PidController.setIntegratorRange(kMinOutput, kMaxOutput);
+    //m_PidController.setFF(kFF);
 //
-  //  pid.setReference(rotations, ControlType.kPosition);
-  //  //pidController.
-  //}
+    m_PidController.setSetpoint(rotations);
+  }
   /**
    * Example command factory method.
    *

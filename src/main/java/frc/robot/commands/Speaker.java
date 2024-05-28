@@ -35,7 +35,7 @@ public class Speaker extends Command {
   @Override
   public void execute() {
     m_subsystem.prepareShoot(5676);
-    if(timer.get()>2 ){
+    if(timer.get()>1.5 ){
       m_subsystem.shoot(1);
       }
   }

@@ -43,33 +43,33 @@ public class SpeakerRigthAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      if(timer.get()<0.1){
-        m_shooter.human(0.5, 0.1);
-      }else if(timer.get() > 0.1 && timer.get() < 0.7){
-        m_shooter.human(0,0);
-      }else if(timer.get() > 1.7 && timer.get() < 2.1){
-        m_shooter.human(-0.5, -0.5);
-      }else if(timer.get() > 2.1 && timer.get() < 4.1){
-        m_shooter.prepareShoot(5676);
-      }else if(timer.get() > 4.1 && timer.get() < 6.1){
-        m_shooter.shoot(1);      
-      }else if(timer.get() > 6.1 && timer.get() < 10){
-        m_shooter.stop();
-        m_chassis.forward(-0.1);
-      }else if(timer.get() > 10 && timer.get() < 10.2){
-        m_chassis.resetEncoders();
-      }else if(timer.get() > 10.2 && timer.get() < 13.1){
-        m_chassis.vitronavx(-0.5);
-      }else if(timer.get() > 13.1 && timer.get() < 14 ){
-        m_chassis.move(0, 0);
-        m_chassis.resetEncoders();
-      }else if(timer.get() > 14 && timer.get() < 16){
-        m_chassis.forward(-1.5 );
-        m_shooter.stop();
-        m_Intake.moveIntake(1, 0.3, 0);
-      }else if(timer.get() > 16){
-        m_chassis.move(0, 0);
-      }
+    if(timer.get()<0.1){
+      //m_shooter.human(0.5, 0.1);
+    }else if(timer.get() > 0.1 && timer.get() < 0.7){
+      //m_shooter.human(0,0);
+    }else if(timer.get() > 1.7 && timer.get() < 2.1){
+      //m_shooter.human(-0.5, -0.5);
+    }else if(timer.get() > 2.1 && timer.get() < 4.1){
+      m_shooter.prepareShoot(5676);
+    }else if(timer.get() > 4.1 && timer.get() < 6.1){
+      m_shooter.shoot(1);      
+    }else if(timer.get() > 6.1 && timer.get() < 10){
+      m_shooter.stop();
+      m_chassis.forward(-0.1);
+    }else if(timer.get() > 10 && timer.get() < 10.2){
+      m_chassis.resetEncoders();
+    }else if(timer.get() > 10.2 && timer.get() < 11.1){
+      m_chassis.vitronavx(-0.15);
+    }else if(timer.get() > 11.1 && timer.get() < 11.5 ){
+      m_chassis.move(0, 0);
+      m_chassis.resetEncoders();
+    }else if(timer.get() > 11.5 && timer.get() < 16){
+      m_chassis.forward(-1.5 );
+      m_shooter.stop();
+      m_Intake.moveIntake(1, 0.3, 0);
+    }else if(timer.get() > 16){
+      m_chassis.move(0, 0);
+    }
 
     /*if(timer.get()<0.1){
       m_shooter.human(0.5, 0.1);

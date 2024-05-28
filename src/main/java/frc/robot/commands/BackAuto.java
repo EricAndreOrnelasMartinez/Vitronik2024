@@ -43,12 +43,14 @@ public class BackAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get()<0.1){
-       m_shooter.human(0.5, 0.1);
+    m_chassis.forward(-10);
+    //m_chassis.fastForward(10);
+    /*if(timer.get()<0.1){
+      // m_shooter.human(0.5, 0.1);
      }else if(timer.get() > 0.1 && timer.get() < 0.7){
-       m_shooter.human(0,0);
+       // m_shooter.human(0,0);
      }else if(timer.get() > 1.7 && timer.get() < 2.1){
-       m_shooter.human(-0.5, -0.5);
+       // m_shooter.human(-0.5, -0.5);
      }else if(timer.get() > 2.1 && timer.get() < 4.1){
        //m_shooter.prepareShoot(5676);
      }else if(timer.get() > 4.1 && timer.get() < 6.1){
@@ -59,12 +61,7 @@ public class BackAuto extends Command {
        m_chassis.forward(-2);
      }else{
        m_chassis.move(0, 0);
-     }
-
-    
-
-
-    
+     }*/
   }
 
   // Called once the command ends or is interrupted.

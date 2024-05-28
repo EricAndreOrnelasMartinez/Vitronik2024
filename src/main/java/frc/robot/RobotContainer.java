@@ -49,7 +49,7 @@ public class RobotContainer {
       new CommandXboxController(Constants.OperatorConstants.kMechanismsControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  public RobotContainer() { 
     // Configure the trigger binding
     m_Chassis = new Chassis();
     m_Shooter = new Shooter();
